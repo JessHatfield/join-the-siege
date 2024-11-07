@@ -9,6 +9,6 @@ class DocumentType(Enum):
 
 
 class SupportedFileTypes(Enum):
-    pdf = 'application/pdf'
-    jpg = 'image/jpeg'
-    png = "image/png"
+    PDF = 'application/pdf'
+    JPG = 'image/jpeg'
+    PNG = "image/png"

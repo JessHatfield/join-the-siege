@@ -33,4 +33,7 @@ class Llama2DocumentClassifier(DocumentClassifier):
 
         """)
 
+        # TO DO
+        # ADD LOGIC TO EXTRACT RESULT, IF RESULT DOES NOT MATCH FORMAT OR IS TOO LONG THEN RAISE ERROR
+
         return response

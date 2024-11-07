@@ -5,7 +5,12 @@ from src.enums.document_types import SupportedFileTypes
 
 app = Flask(__name__)
 
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg'}
+
+def allowed_mimetype(mimetype: str) -> bool:
+    if mimetype in SupportedFileTypes:
+        return True
+    return False
+
 
 @app.route('/classify_file', methods=['POST'])
 def classify_file_route():
@@ -17,7 +22,7 @@ def classify_file_route():
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
 
-    if file.mimetype in SupportedFileTypes:
+    if allowed_mimetype(file.mimetype):
         file_class = classify_file(file)
         return jsonify({"file_class": file_class}), 200
 

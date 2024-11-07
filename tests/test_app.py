@@ -1,7 +1,9 @@
 from io import BytesIO
 
 import pytest
-from src.app import app, allowed_file
+from src.app import app, allowed_mimetype
+from src.enums.document_types import SupportedFileTypes
+
 
 @pytest.fixture
 def client():
@@ -11,14 +13,14 @@ def client():
 
 
 @pytest.mark.parametrize("filename, expected", [
-    ("file.pdf", True),
-    ("file.png", True),
-    ("file.jpg", True),
-    ("file.txt", False),
-    ("file", False),
+    (SupportedFileTypes.PDF.value, True),
+    (SupportedFileTypes.JPG.value, True),
+    (SupportedFileTypes.PNG.value, True),
+    ("text/plain", False),
+    ("text/csv", False),
 ])
-def test_allowed_file(filename, expected):
-    assert allowed_file(filename) == expected
+def test_allowed_mimetype(filename, expected):
+    assert allowed_mimetype(filename) == expected
 
 def test_no_file_in_request(client):
     response = client.post('/classify_file')
