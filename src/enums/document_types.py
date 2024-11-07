@@ -6,3 +6,9 @@ class DocumentType(Enum):
     BANK_STATEMENT = 'bank_statement'
     INVOICE = 'invoice'
     UNKNOWN_FILE = 'unknown file'
+
+
+class SupportedFileTypes(Enum):
+    pdf = 'application/pdf'
+    jpg = 'image/jpeg'
+    png = "image/png"
