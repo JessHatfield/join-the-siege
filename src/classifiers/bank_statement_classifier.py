@@ -7,5 +7,5 @@ class BankStatementClassifier(DocumentClassifier):
 
     def classify(self, file: FileStorage):
         filename = file.filename.lower()
-        if "drivers_license" in filename:
-            return DocumentType.DRIVERS_LICENSE.value
+        if "bank_statement" in filename:
+            return DocumentType.BANK_STATEMENT.value
