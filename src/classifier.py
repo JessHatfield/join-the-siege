@@ -1,17 +1,21 @@
 from werkzeug.datastructures import FileStorage
 
+from src.classifiers import DrivingLicenseClassifier, BankStatementClassifier, InvoiceClassifier
+from src.enums.document_types import DocumentType
+
+
 def classify_file(file: FileStorage):
-    filename = file.filename.lower()
-    # file_bytes = file.read()
+    classifiers = [DrivingLicenseClassifier, BankStatementClassifier, InvoiceClassifier]
 
-    if "drivers_license" in filename:
-        return "drivers_licence"
+    for classifier in classifiers:
+        document_type = classifier.classify(file=file)
 
-    if "bank_statement" in filename:
-        return "bank_statement"
+    if document_type:
+        return document_type
 
-    if "invoice" in filename:
-        return "invoice"
+    return DocumentType.UNKNOWN_FILE.value
 
-    return "unknown file"
+
+
+
 
