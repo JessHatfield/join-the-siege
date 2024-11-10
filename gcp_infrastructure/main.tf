@@ -5,24 +5,6 @@ provider "google" {
 }
 
 
-terraform {
-  required_providers {
-    docker = {
-      source  = "kreuzwerker/docker"
-      version = "~> 3.0.2"
-    }
-  }
-  required_version = ">= 1.9.8"
-}
-#
-# # Configure the Docker provider
-# provider "docker" {
-#   registry_auth {
-#     address  = "gcr.io"
-#     username = "oauth2accesstoken"
-#     password = data.google_client_config.default.access_token
-#   }
-# }
 
 # Get the default Google client configuration
 data "google_client_config" "default" {}
@@ -54,40 +36,28 @@ resource "google_project_service" "services" {
   disable_on_destroy = false
 }
 
-# # Build and push Docker image
-# resource "docker_image" "app" {
-#   name = "gcr.io/${var.project_id}/${var.image_name}:latest"
-#   build {
-#       context    = ".."
-#     dockerfile = "Dockerfile"
-#     platform   = "linux/amd64"
-#     build_args = {
-#       BUILDKIT_INLINE_CACHE = "1"
-#     }
-#   }
-# }
 
-
-# resource "docker_registry_image" "app" {
-#   name = docker_image.app.name
-#   keep_remotely=true
-#   depends_on = [docker_image.app]
-#
-# }
 
 # Deploy to Cloud Run
 resource "google_cloud_run_service" "app" {
-  name     = "my-app-service"
+  name     = "document-classification-service"
   location = var.region
 
   template {
     spec {
       containers {
-#         image = docker_registry_image.app.name
-image="gcr.io/herondatabackendexercise/classification_service_image:latest"
+          image="gcr.io/herondatabackendexercise/classification_service_image:latest"
+
+        resources {
+          limits = {
+            memory = "16Gi"   # Set memory limit to 20GB
+            cpu    = "4"      # Set CPU limit to 4 vCPU
+          }
+        }
+      }
       }
     }
-  }
+
 
   traffic {
     percent         = 100
