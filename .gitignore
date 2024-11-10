@@ -5,3 +5,4 @@ venv
 __pycache__
 *.pyc
 /src/classifier_experiments/AutoMM/
+/gcp_infrastructure/gcp-service-account-key.json

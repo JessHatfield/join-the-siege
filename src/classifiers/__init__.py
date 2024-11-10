@@ -1,4 +1,1 @@
-
-from src.classifiers.bank_statement_classifier import BankStatementClassifier
-from src.classifiers.driving_license_classifier import DrivingLicenseClassifier
-from src.classifiers.invoice_classifier import InvoiceClassifier
+# from src.classifiers.llama2_classifier import Llama2DocumentClassifier
