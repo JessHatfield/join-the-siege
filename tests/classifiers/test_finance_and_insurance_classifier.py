@@ -10,7 +10,7 @@ def test_finance_and_insurance_classifier_returns_result(mocker):
                                        label='test_label',
                                        confidence=0.98)
 
-    mocker.patch('src.classifiers.industries.finance_and_insurance_classifier.DebertaV3Classifier.classify',
+    mocker.patch('src.classifiers.industries.finance_and_insurance_classifier.deberta_v3_classifier',
                  return_value=expected_result)
 
     mocker.patch('src.classifiers.industries.finance_and_insurance_classifier.extract_text_from_file', return_value="")

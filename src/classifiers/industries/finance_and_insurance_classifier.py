@@ -4,7 +4,7 @@ from enum import Enum
 from werkzeug.datastructures import FileStorage
 
 from src.classifiers.base_classifier import DocumentClassifier, ClassifierResult
-from src.classifiers.tools import DebertaV3Classifier, deberta_v3_classifier
+from src.classifiers.tools import deberta_v3_classifier
 from src.classifiers.utils import extract_text_from_file
 
 
