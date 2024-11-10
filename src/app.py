@@ -3,6 +3,23 @@ from flask import Flask, request, jsonify
 from src.classifier import classify_file
 from src.enums.document_types import SupportedFileTypes
 
+import sentry_sdk
+from flask import Flask
+
+sentry_sdk.init(
+    dsn="https://92779b5e7b8a4a3d4dfb846aecde41bc@o4508273926733824.ingest.de.sentry.io/4508273928241232",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    _experiments={
+        # Set continuous_profiling_auto_start to True
+        # to automatically start the profiler on when
+        # possible.
+        "continuous_profiling_auto_start": True,
+    },
+)
+
+
 app = Flask(__name__)
 
 

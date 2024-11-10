@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 8080
 
 # Run Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "src.app:app"]
+CMD ["gunicorn","--access-logfile -","--error-logfile -", "--bind", "0.0.0.0:8080", "src.app:app"]

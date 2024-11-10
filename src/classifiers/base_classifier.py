@@ -1,3 +1,4 @@
+import dataclasses
 from abc import ABC
 
 from werkzeug.datastructures import FileStorage
@@ -9,3 +10,9 @@ class DocumentClassifier(ABC):
 
     def classify(self, file: FileStorage) -> DocumentType:
         raise NotImplementedError
+
+
+@dataclasses.dataclass
+class ClassifierResult:
+    label: str
+    confidence: float
