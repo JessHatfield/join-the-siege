@@ -1,9 +1,17 @@
+from enum import Enum
+
 from werkzeug.datastructures import FileStorage
 
 from src.classifiers.base_classifier import DocumentClassifier, ClassifierResult
 from src.classifiers.tools import DebertaV3Classifier
 from src.classifiers.utils import extract_text_from_file
-from src.enums.document_types import FinancialDocumentType
+from src.enums.industries import SupportedIndustries
+
+
+class FinancialDocumentType(Enum):
+    DRIVERS_LICENSE = 'drivers_licence'
+    BANK_STATEMENT = 'bank_statement'
+    INVOICE = 'invoice'
 
 
 class FinancialDocumentClassifier(DocumentClassifier):
@@ -14,5 +22,5 @@ class FinancialDocumentClassifier(DocumentClassifier):
 
     def classify(self, file: FileStorage) -> ClassifierResult:
         extracted_text = extract_text_from_file(file, file.mimetype)
-
         return self.__classifier.classify(extracted_text=extracted_text, candidate_labels=self.__candidate_labels)
+
