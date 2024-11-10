@@ -6,28 +6,30 @@ from src.classifiers.base_classifier import ClassifierResult
 from src.classifiers.finance_industry_document_classifier import FinancialDocumentClassifier
 from src.enums import GenericDocumentTypes
 
+# In prod this would be replaced by a settings value stored in a DB or settings file
+CONFIDENCE_THRESHOLD = 0.75
+
 
 @dataclasses.dataclass
 class ClassificationResults:
-    results: [ClassifierResult]
+    results: [ClassifierResult] = list
 
     def get_document_label(self):
-
-        highest_score = 0
-        label = GenericDocumentTypes.UNKNOWN_DOCUMENT_TYPE
+        highest_confidence_score = 0
+        label = GenericDocumentTypes.UNKNOWN_DOCUMENT_TYPE.value
         for result in self.results:
-            if result.score > highest_score:
-                highest_score = result.score
+            if result.confidence > highest_confidence_score and result.confidence>=CONFIDENCE_THRESHOLD:
+                highest_confidence_score = result.confidence
                 label = result.label
 
         return label
 
 
-def classify_file(file: FileStorage) -> str:
+def classify_file(file: FileStorage) -> ClassificationResults:
     classifiers = [FinancialDocumentClassifier()]
-    results = ClassificationResults()
+    results = []
 
     for classifier in classifiers:
         results.append(classifier.classify(file=file))
 
-    return results.get_document_label()
+    return ClassificationResults(results=results)

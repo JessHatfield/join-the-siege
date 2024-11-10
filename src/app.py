@@ -40,7 +40,8 @@ def classify_file_route():
         return jsonify({"error": "No selected file"}), 400
 
     if allowed_mimetype(file.mimetype):
-        file_class = classify_file(file)
+        classification_results = classify_file(file)
+        file_class=classification_results.get_document_label()
         return jsonify({"file_class": file_class}), 200
 
     else:

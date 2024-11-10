@@ -1,3 +1,4 @@
+import dataclasses
 from enum import Enum
 
 from werkzeug.datastructures import FileStorage
@@ -16,10 +17,9 @@ class FinancialDocumentType(Enum):
 class FinancialDocumentClassifier(DocumentClassifier):
 
     def __init__(self):
-        self.__classifier = DebertaV3Classifier()
         self.__candidate_labels = [doc_type.value for doc_type in FinancialDocumentType]
 
     def classify(self, file: FileStorage) -> ClassifierResult:
+        classifier = DebertaV3Classifier()
         extracted_text = extract_text_from_file(file, file.mimetype)
-        return self.__classifier.classify(extracted_text=extracted_text, candidate_labels=self.__candidate_labels)
-
+        return classifier.classify(extracted_text=extracted_text, candidate_labels=self.__candidate_labels)
