@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
 
 from src.classifier import classify_file
-from src.enums.document_types import SupportedFileTypes
+from src.enums import SupportedFileTypes
 
 import sentry_sdk
-from flask import Flask
+
 
 sentry_sdk.init(
     dsn="https://92779b5e7b8a4a3d4dfb846aecde41bc@o4508273926733824.ingest.de.sentry.io/4508273928241232",

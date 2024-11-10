@@ -2,7 +2,7 @@ from io import BytesIO
 
 import pytest
 from src.app import app, allowed_mimetype
-from src.enums.document_types import SupportedFileTypes
+from src.enums import SupportedFileTypes
 
 
 @pytest.fixture

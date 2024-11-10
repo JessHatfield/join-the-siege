@@ -5,7 +5,6 @@ from werkzeug.datastructures import FileStorage
 from src.classifiers.base_classifier import DocumentClassifier, ClassifierResult
 from src.classifiers.tools import DebertaV3Classifier
 from src.classifiers.utils import extract_text_from_file
-from src.enums.industries import SupportedIndustries
 
 
 class FinancialDocumentType(Enum):

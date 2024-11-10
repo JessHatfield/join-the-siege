@@ -5,7 +5,7 @@ from PIL import Image
 from pdf2image import convert_from_bytes
 from werkzeug.datastructures import FileStorage
 
-from src.enums.document_types import SupportedFileTypes
+from src.enums import SupportedFileTypes
 
 
 def extract_text_from_image(file: FileStorage) -> str:

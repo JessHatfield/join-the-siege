@@ -3,7 +3,7 @@ from abc import ABC
 
 from werkzeug.datastructures import FileStorage
 
-from src.enums.industries import SupportedIndustries
+from src.enums import SupportedIndustries
 
 
 @dataclasses.dataclass

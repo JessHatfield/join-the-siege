@@ -8,3 +8,6 @@ class SupportedFileTypes(Enum):
     JPG = 'image/jpeg'
     PNG = "image/png"
 
+
+class SupportedIndustries(Enum):
+    FINANCE_AND_INSURANCE = "finance_and_insurance"
