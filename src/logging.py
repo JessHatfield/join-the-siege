@@ -1,4 +1,8 @@
+import logging
+import sys
+
 import structlog
+from structlog.processors import CallsiteParameterAdder
 
 
 def setup_logging():
@@ -20,3 +24,5 @@ def setup_logging():
         wrapper_class=structlog.stdlib.BoundLogger,
         cache_logger_on_first_use=True,
     )
+
+    logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)

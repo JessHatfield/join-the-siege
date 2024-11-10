@@ -32,6 +32,7 @@ app = Flask(__name__)
 
 logger.info('application_started')
 
+
 def allowed_mimetype(mimetype: str) -> bool:
     if mimetype in SupportedFileTypes:
         return True
@@ -49,6 +50,7 @@ def classify_file_route():
         return jsonify({"error": "No selected file"}), 400
 
     if allowed_mimetype(file.mimetype):
+        logger.info('classifying_file', mimetype=file.mimetype)
         classification_results = classify_file(file)
         file_class = classification_results.get_document_label()
         return jsonify({"file_class": file_class}), 200

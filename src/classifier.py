@@ -1,5 +1,6 @@
 import dataclasses
 
+import structlog
 from werkzeug.datastructures import FileStorage
 
 from src.classifiers.base_classifier import ClassifierResult
@@ -8,6 +9,8 @@ from src.enums import GenericDocumentTypes
 
 # In prod this would be replaced by a settings value stored in a DB or settings file
 CONFIDENCE_THRESHOLD = 0.75
+
+logger = structlog.getLogger(__name__)
 
 
 @dataclasses.dataclass
@@ -18,9 +21,12 @@ class ClassificationResults:
         highest_confidence_score = 0
         label = GenericDocumentTypes.UNKNOWN_DOCUMENT_TYPE.value
         for result in self.results:
-            if result.confidence > highest_confidence_score and result.confidence>=CONFIDENCE_THRESHOLD:
+            if result.confidence > highest_confidence_score and result.confidence >= CONFIDENCE_THRESHOLD:
                 highest_confidence_score = result.confidence
                 label = result.label
+
+        if highest_confidence_score == 0:
+            logger.info('could_not_generate_label_for_document', results=self.results)
 
         return label
 
