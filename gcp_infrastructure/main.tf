@@ -84,7 +84,7 @@ resource "google_cloud_run_service" "app" {
     spec {
       containers {
 #         image = docker_registry_image.app.name
-image="gcr.io/herondatabackendexercise/classification_service_image"
+image="gcr.io/herondatabackendexercise/classification_service_image:latest"
       }
     }
   }
