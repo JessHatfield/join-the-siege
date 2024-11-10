@@ -1,9 +1,14 @@
+import logging
+
+import structlog
 from flask import Flask, request, jsonify
 
 from src.classifier import classify_file
 from src.enums import SupportedFileTypes
 
 import sentry_sdk
+
+from src.logging import setup_logging
 
 sentry_sdk.init(
     dsn="https://92779b5e7b8a4a3d4dfb846aecde41bc@o4508273926733824.ingest.de.sentry.io/4508273928241232",
@@ -18,8 +23,14 @@ sentry_sdk.init(
     },
 )
 
+# Setup structlog
+setup_logging()
+
+logger = structlog.getLogger(__name__)
+
 app = Flask(__name__)
 
+logger.info('application_started')
 
 def allowed_mimetype(mimetype: str) -> bool:
     if mimetype in SupportedFileTypes:
