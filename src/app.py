@@ -2,7 +2,7 @@ import json
 from http.client import HTTPException
 
 import structlog
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Request
 
 from src.classifier import classify_file
 from src.enums import SupportedFileTypes
@@ -58,6 +58,7 @@ def handle_exception(e):
 @app.route('/classify_file', methods=['POST'])
 def classify_file_route():
     if 'file' not in request.files:
+        logger.info('file_part_not_in_request')
         return jsonify({"error": "No file part in the request"}), 400
 
     file = request.files['file']

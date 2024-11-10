@@ -23,4 +23,4 @@ RUN timeout 180 bash -c 'while ! huggingface-cli download MoritzLaurer/deberta-v
 EXPOSE 8080
 
 # Run Gunicorn
-CMD ["gunicorn","--workers","4", "--access-logfile", "-", "--error-logfile", "-", "--bind", "0.0.0.0:8080", "src.app:app"]
+CMD ["gunicorn","--workers","8", "--access-logfile", "-", "--error-logfile", "-", "--bind", "0.0.0.0:8080", "src.app:app"]

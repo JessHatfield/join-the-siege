@@ -5,7 +5,7 @@ import asyncio
 import time
 
 # URL and file path
-url = "https://my-app-service-260885586204.europe-west2.run.app/classify_file"
+url = "https://document-classification-service-260885586204.europe-west2.run.app/classify_file"
 file_path = f"../files/drivers_license_1.jpg"
 
 
