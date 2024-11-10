@@ -6,3 +6,11 @@ __pycache__
 *.pyc
 /src/classifier_experiments/AutoMM/
 /gcp_infrastructure/gcp-service-account-key.json
+/gcp_infrastructure/terraform.tfstate
+/gcp_infrastructure/terraform.tfstate.backup
+/gcp_infrastructure/.terraform/providers/registry.terraform.io/hashicorp/google/6.10.0/darwin_arm64/LICENSE.txt
+/gcp_infrastructure/.terraform/providers/registry.terraform.io/hashicorp/google/6.10.0/darwin_arm64/terraform-provider-google_v6.10.0_x5
+/gcp_infrastructure/.terraform/providers/registry.terraform.io/kreuzwerker/docker/3.0.2/darwin_arm64/CHANGELOG.md
+/gcp_infrastructure/.terraform/providers/registry.terraform.io/kreuzwerker/docker/3.0.2/darwin_arm64/LICENSE
+/gcp_infrastructure/.terraform/providers/registry.terraform.io/kreuzwerker/docker/3.0.2/darwin_arm64/README.md
+/gcp_infrastructure/.terraform/providers/registry.terraform.io/kreuzwerker/docker/3.0.2/darwin_arm64/terraform-provider-docker_v3.0.2
