@@ -7,7 +7,10 @@ COPY requirements.txt .
 # Install the required packages
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Set the working directory in the container
+# Install Tesseract for OCR
+
+RUN apt-get update && apt-get -y install tesseract-ocr
+
 
 # Copy the Flask application code into the container
 COPY . .
