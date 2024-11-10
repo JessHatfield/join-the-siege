@@ -5,7 +5,6 @@ from src.enums import SupportedFileTypes
 
 import sentry_sdk
 
-
 sentry_sdk.init(
     dsn="https://92779b5e7b8a4a3d4dfb846aecde41bc@o4508273926733824.ingest.de.sentry.io/4508273928241232",
     # Set traces_sample_rate to 1.0 to capture 100%
@@ -18,7 +17,6 @@ sentry_sdk.init(
         "continuous_profiling_auto_start": True,
     },
 )
-
 
 app = Flask(__name__)
 
@@ -41,7 +39,7 @@ def classify_file_route():
 
     if allowed_mimetype(file.mimetype):
         classification_results = classify_file(file)
-        file_class=classification_results.get_document_label()
+        file_class = classification_results.get_document_label()
         return jsonify({"file_class": file_class}), 200
 
     else:

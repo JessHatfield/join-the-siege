@@ -3,7 +3,7 @@ import dataclasses
 from werkzeug.datastructures import FileStorage
 
 from src.classifiers.base_classifier import ClassifierResult
-from src.classifiers.finance_industry_document_classifier import FinancialDocumentClassifier
+from src.classifiers.industries.finance_and_insurance_classifier import FinancialDocumentClassifier
 from src.enums import GenericDocumentTypes
 
 # In prod this would be replaced by a settings value stored in a DB or settings file

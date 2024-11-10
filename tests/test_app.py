@@ -2,6 +2,8 @@ from io import BytesIO
 
 import pytest
 from src.app import app, allowed_mimetype
+from src.classifier import ClassificationResults
+from src.classifiers.base_classifier import ClassifierResult
 from src.enums import SupportedFileTypes
 
 
@@ -32,7 +34,7 @@ def test_no_selected_file(client):
     assert response.status_code == 400
 
 def test_success(client, mocker):
-    mocker.patch('src.app.classify_file', return_value='test_class')
+    mocker.patch('src.app.classify_file', return_value=ClassificationResults(results=[ClassifierResult(industry='',confidence=0.98,label='test_class')]))
 
     data = {'file': (BytesIO(b"dummy content"), 'file.pdf')}
     response = client.post('/classify_file', data=data, content_type='multipart/form-data')
