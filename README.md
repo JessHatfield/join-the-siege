@@ -47,13 +47,14 @@ Overall this was a great learning experience, and I'm excited to talk through it
 - Running my solution via Google Cloud Run gives us the ability to quickly scale horizontally and handle volatile loads
 - I've tested the solution via locust, I could achieve a mean response time of 6 seconds across a load of 10 RPS (so about 860k responses daily) with a success rate of about 98%
 - I was also able to 10X load from 1 RPS to 10 RPS whilst maintaining this mean response time with a reasonable degree of stability
+- With larger volumes of data comes more errors, I've added sentry + structlog to our project to aid with this.
+- Sentry is a powerful tool for categorising and triaging issues out of the box
+- Structlog makes our logs machine-readable, ideally for parsing into DataDog and ultimately powering monitoring dashboards + performance alarms
 
- Load testing screenshot
- <img alt="Load testing results" src="/join-the-siege/locust_load_testing_results.png"/>
+A screenshot of my load test results can be found [here](https://github.com/JessHatfield/join-the-siege/blob/40e16d2c75e612f4f6371bac71e4bd90f50b308a/locust_load_testing_results.png)
 
 
-
-Areas for improvement
+### Areas for improvement
 
 Response times
    - An average response time of 6 seconds might not be acceptable for direct usage in a synchronous customer facing flow
@@ -74,6 +75,60 @@ CI/CD
    - However, the progress of build not visible to wider team, which adds a heap of confusion + friction to the process
    - Furthermore, we don't enforce test successes prior to deployment or enforce style standards either!
    - Given more time I could use github actions + slack alerts to enforce tests/style standards and make the whole deployment process monitorable
+
+Authentication
+   - To help prevent misuse we need to add authentication, possibly via a pre-shared token given the stateless nature of the service?
+   - The exact approach used is of course dependent on who is consuming this service!
+
+Testing across a wider range of documents
+
+   - Ideally I'd like to throw a larger volume of real-world documents at the service as I suspect we are going to encounter edge cases which reduce classifier effectiveness 
+
+### Running My Project
+
+My endpoint is publicly accessible at https://document-classification-service-260885586204.europe-west2.run.app
+
+```shell
+curl -X POST -F 'file=@files/drivers_license_1.jpg' https://document-classification-service-260885586204.europe-west2.run.app/classify_file
+```
+
+#### Developing locally
+
+The commands outlined [here](https://github.com/JessHatfield/join-the-siege/blob/40e16d2c75e612f4f6371bac71e4bd90f50b308a/README.md#L133) will still work
+
+Prior to running flask you will also need to install Tesseract
+```shell
+RUN apt-get update && apt-get -y install tesseract-ocr
+```
+
+#### Deploying to production
+
+The current approach is really hacky. That said here is how it works
+
+You can email me at jesshatfield.jh@gmail.com to ask for access to my Google Cloud project
+
+1. Confirm your changes work locally
+2. Commit to the main branch of my repository. This triggers a cloud build run which takes about 15 mins to complete
+3. Once complete this run will build a new container image and deploy this to our Google cloud instance
+4. If you have access to my project you can view the progress of the build [here](https://console.cloud.google.com/cloud-build/builds?referrer=search&hl=en&project=herondatabackendexercise)
+
+#### Running Docker
+
+You might want to do this to run manual integration tests prior to deploying to production
+
+1. Build a new docker image:
+    ```shell
+    sudo docker buildx build -t gcr.io/herondatabackendexercise/classification_service_image:latest .
+    ```
+2. Spin up a docker container
+  ```shell
+    docker run -p 8080:8080 gcr.io/herondatabackendexercise/classification_service_image:latest
+   ```
+
+3. Send requests to our container
+ ```shell
+    curl -X POST -F 'file=@files/drivers_license_1.jpg' http://0.0.0.0:8080/classify_file 
+   ```
 
 ## Overview
 
