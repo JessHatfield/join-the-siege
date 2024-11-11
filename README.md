@@ -10,7 +10,7 @@ I've also refactored the project to more easily support the addition of new indu
 
 Finally, I've used locust to load test the solution at scale
 
-At each stage I attempted to get the most bang for my buck, choosing technologies that would give me the most functionality for the least amount of time investment.
+At each stage I attempted to get the most bang for my buck, choosing technologies that would give me the most functionality for the least amount of time investment
 
 - Using a zero-shot classifier to avoid having to collect a dataset and train a model/trick a LLM into working with sensitive data
 - Using Docker + Google Cloud Run + Terraform to abstract away much of the complexity around building infrastructure/allowing me to support a wide range of load cases
@@ -18,7 +18,7 @@ At each stage I attempted to get the most bang for my buck, choosing technologie
 
 This was project was complete over about two days of work. If I was stricter with time I would have focused on the zero-shot classifier approach and then manually hosted it via Google Cloud Run
 
-Scope was deliberately extended by the decision to add terraform/load testing/experimentation with different classification options. 
+Scope was deliberately extended by the decision to add terraform/load testing/experimentation with different classification options
 
 I was keen to learn more about these areas, but this did mean I spent hours troubleshooting infrastructure issues and went down a dead-end trying to use LocalLama to classify sensitive text
 
