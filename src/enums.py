@@ -1,10 +1,9 @@
 from enum import Enum
 
 
-
-
 class GenericDocumentTypes(Enum):
-    UNKNOWN_DOCUMENT_TYPE='unknown_document_type'
+    UNKNOWN_DOCUMENT_TYPE = 'unknown_document_type'
+
 
 class SupportedFileTypes(Enum):
     PDF = 'application/pdf'
@@ -14,4 +13,3 @@ class SupportedFileTypes(Enum):
 
 class SupportedIndustries(Enum):
     FINANCE_AND_INSURANCE = "finance_and_insurance"
-

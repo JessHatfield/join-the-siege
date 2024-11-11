@@ -50,8 +50,8 @@ resource "google_cloud_run_service" "app" {
 
         resources {
           limits = {
-            memory = "16Gi"   # Set memory limit to 20GB
-            cpu    = "4"      # Set CPU limit to 4 vCPU
+            memory = "32Gi"   # Set memory limit to 20GB
+            cpu    = "8"      # Set CPU limit to 8 vCPU
           }
         }
       }
