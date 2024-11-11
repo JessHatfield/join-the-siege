@@ -57,6 +57,7 @@ A screenshot of my load test results can be found [here](https://github.com/Jess
 ### Areas for improvement
 
 Response times
+
    - An average response time of 6 seconds might not be acceptable for direct usage in a synchronous customer facing flow
    - It's hard to say without better understanding load requirements/use cases/system architecture, how much of a drawback this ultimately is!
    - Our 95% percentile response time remains very high (18 seconds) but I suspect with further optimisation I could solve the bugs causing this
@@ -77,6 +78,7 @@ CI/CD
    - Given more time I could use github actions + slack alerts to enforce tests/style standards and make the whole deployment process monitorable
 
 Authentication
+
    - To help prevent misuse we need to add authentication, possibly via a pre-shared token given the stateless nature of the service?
    - The exact approach used is of course dependent on who is consuming this service!
 
