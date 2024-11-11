@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from locust import HttpUser, task
 
 
@@ -6,7 +8,8 @@ class LoadTestDocumentClassificationEndpoint(HttpUser):
 
     @task
     def load_test_classification_endpoint(self):
-        file_path = f"drivers_license_1.jpg"
+        parent_dir = Path(__file__).resolve().parents[2]
+        file_path = f"{parent_dir}/files/drivers_license_1.jpg"
         endpoint = "/classify_file"
 
         with open(file_path, 'rb') as file_to_upload:
